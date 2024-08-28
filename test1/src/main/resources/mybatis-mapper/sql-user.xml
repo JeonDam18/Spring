@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.test1.mapper.UserMapper">
+	<select id="userLogin" parameterType="hashmap" resultType="com.example.test1.model.User">
+		SELECT 
+			COUNT(*) AS CNT
+		FROM TBL_USER
+		WHERE USERID = ${userId} AND PWD = ${pwd} 
+	</select>
+	
+	<select id="UserInfo" parameterType="hashmap" resultType="com.example.test1.model.User">
+		SELECT 
+		*
+		FROM TBL_USER
+		WHERE USERID = #{userId}
+	</select>
+	
+	<insert id="userJoin" parameterType="hashmap">
+		INSERT INTO TBL_USER
+		VALUES(#{userId},#{pwd},#{name},#{email},#{phone},#{gender})
+		
+	</insert>
+</mapper>
