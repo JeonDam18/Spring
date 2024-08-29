@@ -3,6 +3,7 @@ package com.example.test1.controller;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ import com.google.gson.Gson;
 public class UserController {
 	@Autowired
 	UserService UserService;
+	
+	@Autowired
+	HttpSession session;
 	
 	//로그인
 	@RequestMapping("/login.do") 
@@ -48,6 +52,22 @@ public class UserController {
 		return "/join";
     }
 	
+	//유저리스트
+	@RequestMapping("/user-list.do") 
+	public String userlist(Model model) throws Exception{
+		
+		return "/user-list";
+	}
+	
+	//유저 정보
+	@RequestMapping(value = "/user-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String user_List(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap 
+			= new HashMap<String, Object>();
+		resultMap = UserService.UserList(map);
+		return new Gson().toJson(resultMap);
+	}
 	//회원가입
 	@	RequestMapping(value = "/user-join.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -80,6 +100,7 @@ public class UserController {
 	@RequestMapping(value = "/user-login.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String user_login(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		System.out.println("controller"+map); 
 		HashMap<String, Object> resultMap 
 			= new HashMap<String, Object>();
 		resultMap = UserService.userLogin(map);

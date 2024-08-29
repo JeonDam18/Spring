@@ -4,14 +4,29 @@
 
 <mapper namespace="com.example.test1.mapper.UserMapper">
 	<select id="userLogin" parameterType="hashmap" resultType="com.example.test1.model.User">
-		SELECT 
-			COUNT(*) AS CNT
+		SELECT * 
 		FROM TBL_USER
-		WHERE USERID = ${userId} AND PWD = ${pwd} 
+		WHERE USERID = #{userId} AND PWD = #{pwd} 
+	</select>
+	<select id="userList" parameterType="hashmap" resultType="com.example.test1.model.User">
+		SELECT
+			*
+		FROM TBL_USER	
+		WHERE 1=1
+         <if test="category == 'cate_id'">
+          AND USERID LIKE '%' ||  #{searchData} || '%'
+        </if>
+        <if test="category == 'cate_email'">
+          AND EMAIL LIKE '%' ||  #{searchData} || '%'
+        </if>
+        <if test="category == ''">
+          AND (USERID LIKE '%' ||  #{searchData} || '%'
+          OR EMAIL LIKE '%' ||  #{searchData} || '%')
+        </if> 
 	</select>
 	
 	<select id="UserInfo" parameterType="hashmap" resultType="com.example.test1.model.User">
-		SELECT 
+		SELECT
 		*
 		FROM TBL_USER
 		WHERE USERID = #{userId}
@@ -20,6 +35,5 @@
 	<insert id="userJoin" parameterType="hashmap">
 		INSERT INTO TBL_USER
 		VALUES(#{userId},#{pwd},#{name},#{email},#{phone},#{gender})
-		
 	</insert>
-</mapper>
+</mapper> 

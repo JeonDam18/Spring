@@ -15,7 +15,7 @@
 				제목 : {{list.title}}					
 			</div>
 			<div>
-				내용 : {{list.contents}}					
+				내용 : <div v-html="list.contents"></div>					
 			</div>
 		</div>
 

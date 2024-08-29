@@ -20,39 +20,34 @@
 </style>
 <body>
 	<div id="app">
-		<ul>
+		<!--<ul>
 			<li><a href="#" @click="fnCateBoard('')">전체</li>
 			<li><a href="#" @click="fnCateBoard('1')">공지사항</li>
-			<li><a href="#" @click="fnCateBoard('2')">자유게시판</li>
-			<li><a href="#" @click="fnCateBoard('3')">질문게시판</li>
-		</ul>
+		</ul>-->
 		
 		<select name="cate" v-model="category">
 		  <option value="" selected>::전체::</option>
-		  <option value="cate_title">제목</option>
-		  <option value="cate_user">작성자</option>
+		  <option value="cate_id">아이디</option>
+		  <option value="cate_email">이메일</option>
 		</select>
 		<div>검색 : <input type="text" v-model="searchData"> <button @click="fnGetList()">검색</button></div>
 		<table>
 				        <tr>
-				            <th>번호</th>
-				            <th>제목</th>
-				            <th>작성자</th>
-				            <th>조회수</th>
-				            <th>작성일</th>
+				            <th>아이디</th>
+				            <th>이름</th>
+				            <th>이메일</th>
+				            <th>핸드폰</th>
+				            <th>성별</th>
 				            
 				        </tr>
 				        <tr v-for="item in list">
-				            <td>{{item.boardNo}}</td>
-				            <td><a href="#" @click="fnView(item.boardNo)">{{item.title}}<a/></td>
-				            <td><a href="#" @click="fnUserView(item.userId)">{{item.userName}}</td>
-				            <td>{{item.hit}}</td>
-				            <td>{{item.cdateTime}}</td>
-							<td><input type="radio" name="select" v-model=""></td>
-							
+				            <td>{{item.userId}}</td>
+				            <td>{{item.userName}}<a/></td>
+				            <td>{{item.email}}</td>
+				            <td>{{item.phone}}</td>
+				            <td>{{item.gender}}</td>														
 				        </tr>
 				    </table>
-				<button @click="fnDelete(item.boardNo)">삭제</button>
 	</div>
 </body>
 </html> 
@@ -60,23 +55,22 @@
     const app = Vue.createApp({
         data() {
             return {
-				list : [],
-				boardNo : "",
-				title : "",
+				list : [], 
+				userName : "", 
 				userId : "",
-				hit : "",
-				cdateTime : "",
-				searchData : "",
+				email : "",
+				phone : "",
 				category : "",
-				number : ""
+				number : "",
+				searchData :""
             };
         },
         methods: {
             fnGetList(){
 				var self = this;
-				var nparmap = {searchData : this.searchData, category : this.category, number : this.number };
+				var nparmap = {searchData : this.searchData, category : this.category };
 				$.ajax({
-					url:"board-list.dox",
+					url:"user-list.dox",
 					dataType:"json",	
 					type : "POST", 
 					data : nparmap,
@@ -87,27 +81,8 @@
 					}
 				});
             },			
-	            fnDelete(BoardNo){
-					var self = this;
-					var nparmap = {boardNo : BoardNo};
-					if(!confirm("삭제하시겠습니까?")){
-						return;
-					};
-					$.ajax({
-						url:"board-delete.dox",
-						dataType:"json",	
-						type : "POST", 
-						data : nparmap,
-						success : function(data) { 
-						console.log(data);
-						alert(data.message);
-						self.fnGetList();
-					}
-				});
-		     },
-			 fnView(BoardNo){
-				$.pageChange("board-view.do",{boardNo : BoardNo});
-			 },
+	           
+		
 			 fnUserView(userId){
 				$.pageChange("user-view.do",{userId : userId});
 			 },

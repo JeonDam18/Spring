@@ -12,5 +12,7 @@ public interface UserService {
 	
 	//유저 정보
 	HashMap<String,Object> Userinfo(HashMap<String, Object> map);
+	
+	HashMap<String,Object> UserList(HashMap<String, Object> map);
 		
 }

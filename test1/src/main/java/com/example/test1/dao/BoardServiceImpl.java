@@ -23,6 +23,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public HashMap<String, Object> searchBoard(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
+		System.out.println(map);
 		HashMap<String, Object> resultMap = new HashMap<>();
 		List<Board> list = BoardMapper.selectBoardList(map);
 		resultMap.put("list",list);

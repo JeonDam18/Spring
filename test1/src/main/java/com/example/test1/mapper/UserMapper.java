@@ -16,4 +16,6 @@ public interface UserMapper {
 	void userJoin(HashMap<String,Object> map);
 	
 	 User UserInfo(HashMap<String,Object> map);
+	 
+	 List<User> userList(HashMap<String,Object> map);
 }

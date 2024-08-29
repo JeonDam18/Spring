@@ -8,18 +8,21 @@
 			*
 		FROM TBL_BOARD B
 		INNER JOIN TBL_USER U ON B.USERID = U.USERID
-		WHERE 
-		<choose>
-        <when test="category == 'cate_title'">
-          TITLE LIKE '%' ||  #{searchData} || '%'
-        </when>
-        <when test="category == 'cate_user'">
-          U.USERNAME LIKE '%' ||  #{searchData} || '%'
-        </when>
-        <otherwise>
-          1 = 1 
-        </otherwise>
-      </choose>
+		WHERE 1=1
+         <if test="category == 'cate_title'">
+          AND TITLE LIKE '%' ||  #{searchData} || '%'
+        </if>
+        <if test="category == 'cate_user'">
+          AND U.USERNAME LIKE '%' ||  #{searchData} || '%'
+        </if>
+        <if test="category == ''">
+          AND (U.USERNAME LIKE '%' ||  #{searchData} || '%'
+          OR TITLE LIKE '%' ||  #{searchData} || '%')
+        </if>    
+	     <if test="number != '' and number != null">
+	      AND CATEGORY = #{number}
+       	 </if>
+
 
 	</select>
 	
@@ -39,6 +42,6 @@
 	<insert id="insertBoard" parameterType="hashmap">
 		INSERT INTO
 		TBL_BOARD(BOARDNO,TITLE,CONTENTS,USERID,HIT,CDATETIME,UDATETIME)
-		VALUES(BOARD_SEQ.NEXTVAL,#{title},#{contents},'user9',0,SYSDATE,SYSDATE)
+		VALUES(BOARD_SEQ.NEXTVAL,#{title},#{contents},'user1',0,SYSDATE,SYSDATE)
 	</insert>
 </mapper>
