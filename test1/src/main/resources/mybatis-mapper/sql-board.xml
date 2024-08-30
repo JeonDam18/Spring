@@ -42,6 +42,6 @@
 	<insert id="insertBoard" parameterType="hashmap">
 		INSERT INTO
 		TBL_BOARD(BOARDNO,TITLE,CONTENTS,USERID,HIT,CDATETIME,UDATETIME)
-		VALUES(BOARD_SEQ.NEXTVAL,#{title},#{contents},'user1',0,SYSDATE,SYSDATE)
+		VALUES(BOARD_SEQ.NEXTVAL,#{title},#{contents},#{userId},0,SYSDATE,SYSDATE)
 	</insert>
 </mapper>

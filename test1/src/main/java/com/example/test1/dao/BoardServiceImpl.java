@@ -23,7 +23,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public HashMap<String, Object> searchBoard(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		System.out.println(map);
+
 		HashMap<String, Object> resultMap = new HashMap<>();
 		List<Board> list = BoardMapper.selectBoardList(map);
 		resultMap.put("list",list);
@@ -35,11 +35,10 @@ public class BoardServiceImpl implements BoardService{
 	//게시글 삭제
 	@Override
 	public HashMap<String, Object> deleteBoard(HashMap<String, Object> map) {
-		 
+		 System.out.println(map);
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {			
 			BoardMapper.deleteBoard(map);
-			
 			resultMap.put("message", "삭제되었습니다.");
 		} catch (Exception e) {
 

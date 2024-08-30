@@ -17,7 +17,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserMapper UserMapper;
-
+	
+	//JWT Jason web token 요즘 좀더 자주쓰는 세션연결
 	@Autowired
 	HttpSession session;
 
@@ -41,6 +42,10 @@ public class UserServiceImpl implements UserService {
 				resultMap.put("list", user);
 				resultMap.put("result", "success");
 				resultMap.put("message", "로그인 성공!");
+				session.setAttribute("sessionId", user.getUserId());
+				session.setAttribute("sessionName", user.getUserName());
+				session.setAttribute("sessionStatus", user.getStatus());
+				//session.invalidate(); 세션 전체 삭제 session.removeValue(null); 세션 개별 삭제
 			}
 		} catch (Exception e) {
 			resultMap.put("message", "로그인실패!");

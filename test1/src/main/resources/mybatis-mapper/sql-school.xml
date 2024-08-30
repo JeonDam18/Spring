@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.test1.mapper.SchoolMapper">
+	<select id="selectSchoolList" parameterType="hashmap" resultType="com.example.test1.model.School">
+		SELECT 
+			STUNO,
+			NAME,
+			RPAD(SUBSTR(ID,4),LENGTH(ID),'*') AS ID,
+			GRADE,SUBSTR(JUMIN,1,6) || '-' || SUBSTR(JUMIN,7,1) || '******' AS JUMIN 
+			FROM STU
+	</select>
+	<select id="stuInfo" parameterType="hashmap" resultType="com.example.test1.model.School">
+		SELECT S.STUNO,S.NAME,D.DNAME,P.NAME AS PNAME
+			FROM STU S
+			INNER JOIN DEPARTMENT D ON S.DEPTNO1= D.DEPTNO
+			INNER JOIN DEPARTMENT D2 ON D2.DEPTNO = D.PART
+			INNER JOIN PROFESSOR P ON P.DEPTNO = D.DEPTNO
+			WHERE S.STUNO = #{stuNo}
+	</select>
+	
+	<update id="stuUpdate" parameterType="hashmap">
+		UPDATE STU SET NAME = #{name},
+			TEL = #{tel},
+			HEIGHT= #{height},
+			WEIGHT= #{weight}
+			WHERE STUNO= #{stuNo}
+	</update>
+</mapper>

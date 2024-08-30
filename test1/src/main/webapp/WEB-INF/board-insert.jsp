@@ -35,14 +35,15 @@
         data() {
             return {
 				title : "",
-				contents : ""	
+				contents : "",
+				sessionId : '${sessionId}'
             };
         },
         methods: {
 			//fnSave 생성후 board-add.dox 호출해서 저장
 			fnSave(){
 				var self = this;
-				var nparam = {title : self.title,contents : self.contents}
+				var nparam = {title : self.title,contents : self.contents , userId : self.sessionId}
 				$.ajax({
 					url:"board-add.dox",
 					dataType:"json",	

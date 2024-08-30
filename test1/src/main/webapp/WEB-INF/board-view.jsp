@@ -17,8 +17,12 @@
 			<div>
 				내용 : <div v-html="list.contents"></div>					
 			</div>
+			<div>작성자 : {{list.userId}}</div>
+		<div v-if="list.userId == sessionId || sessionStatus == 'A'">
+			<button @click="fnDelete(list.boardNo)">삭제</button>
 		</div>
-
+		<div>세션값 : {{sessionId}}</div>
+	</div>
 </body>
 </html> 
 <script>
@@ -26,7 +30,9 @@
         data() {
             return {
 				list : {},
-				boardNo : '${boardNo}'
+				boardNo : '${boardNo}',
+				sessionId : '${sessionId}',
+				sessionStatus : '${sessionStatus}'
             };
         },
         methods: {
@@ -42,7 +48,26 @@
 						self.list = data.list;		
 					}
 				});
-			 },	
+			 },
+			 fnDelete(BoardNo){
+ 					var self = this;
+ 					var nparmap = {boardNo : BoardNo};
+ 					if(!confirm("삭제하시겠습니까?")){
+ 						return;
+ 					};
+ 					$.ajax({
+ 						url:"board-delete.dox",
+ 						dataType:"json",	
+ 						type : "POST", 
+ 						data : nparmap,
+ 						success : function(data) { 
+ 						console.log(data);
+ 						alert(data.message);
+						location.href="board-list.do"
+
+ 					}
+ 				});
+			}	
 			
         },
 		       

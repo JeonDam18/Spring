@@ -21,10 +21,10 @@
 <body>
 	<div id="app">
 		<ul>
-			<li><a href="#" @click="fnCateBoard('')">전체</li>
-			<li><a href="#" @click="fnCateBoard('1')">공지사항</li>
-			<li><a href="#" @click="fnCateBoard('2')">자유게시판</li>
-			<li><a href="#" @click="fnCateBoard('3')">질문게시판</li>
+			<li><a href="#" @click="fnCateBoard('')">전체</a></li>
+			<li><a href="#" @click="fnCateBoard('1')">공지사항</a></li>
+			<li><a href="#" @click="fnCateBoard('2')">자유게시판</a></li>
+			<li><a href="#" @click="fnCateBoard('3')">질문게시판</a></li>
 		</ul>
 		
 		<select name="cate" v-model="category">
@@ -44,15 +44,17 @@
 				        </tr>
 				        <tr v-for="item in list">
 				            <td>{{item.boardNo}}</td>
-				            <td><a href="#" @click="fnView(item.boardNo)">{{item.title}}<a/></td>
-				            <td><a href="#" @click="fnUserView(item.userId)">{{item.userName}}</td>
+				            <td><a href="#" @click="fnView(item.boardNo)">{{item.title}}</a></td>
+				            <td><a href="#" @click="fnUserView(item.userId)">{{item.userName}}</a></td>
 				            <td>{{item.hit}}</td>
 				            <td>{{item.cdateTime}}</td>
-							<td><input type="radio" name="select" v-model=""></td>
 							
 				        </tr>
 				    </table>
-				<button @click="fnDelete(item.boardNo)">삭제</button>
+				
+				<button @click="fnInsert()">게시글작성</button>
+				<button @click="fnLogout()">로그아웃</button>
+				<div>세션값 {{sessionId}}</div>
 	</div>
 </body>
 </html> 
@@ -64,11 +66,10 @@
 				boardNo : "",
 				title : "",
 				userId : "",
-				hit : "",
-				cdateTime : "",
 				searchData : "",
 				category : "",
-				number : ""
+				number : "",
+				sessionId : '${sessionId}'
             };
         },
         methods: {
@@ -87,24 +88,7 @@
 					}
 				});
             },			
-	            fnDelete(BoardNo){
-					var self = this;
-					var nparmap = {boardNo : BoardNo};
-					if(!confirm("삭제하시겠습니까?")){
-						return;
-					};
-					$.ajax({
-						url:"board-delete.dox",
-						dataType:"json",	
-						type : "POST", 
-						data : nparmap,
-						success : function(data) { 
-						console.log(data);
-						alert(data.message);
-						self.fnGetList();
-					}
-				});
-		     },
+	          
 			 fnView(BoardNo){
 				$.pageChange("board-view.do",{boardNo : BoardNo});
 			 },
@@ -115,6 +99,12 @@
 				var self = this;
 				this.number = number;
 				self.fnGetList(); 
+			},
+			fnInsert(){
+				location.href="board-insert.do"
+			},
+			fnLogout(){
+				location.href="login.do"
 			}
 
         },
