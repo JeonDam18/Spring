@@ -22,8 +22,27 @@
 	     <if test="number != '' and number != null">
 	      AND CATEGORY = #{number}
        	 </if>
-
-
+		ORDER BY CDATETIME ASC, BOARDNO DESC
+		OFFSET #{startIndex} ROWS FETCH FIRST #{outputNumber} ROWS ONLY
+	</select>
+	
+	<select id="boardCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) AS CNT FROM TBL_BOARD B
+		INNER JOIN TBL_USER U ON B.USERID = U.USERID
+		WHERE 1=1
+         <if test="category == 'cate_title'">
+          AND TITLE LIKE '%' ||  #{searchData} || '%'
+        </if>
+        <if test="category == 'cate_user'">
+          AND U.USERNAME LIKE '%' ||  #{searchData} || '%'
+        </if>
+        <if test="category == ''">
+          AND (U.USERNAME LIKE '%' ||  #{searchData} || '%'
+          OR TITLE LIKE '%' ||  #{searchData} || '%')
+        </if>    
+	     <if test="number != '' and number != null">
+	      AND CATEGORY = #{number}
+       	 </if>
 	</select>
 	
 	<select id="BoardList" parameterType="hashmap" resultType="com.example.test1.model.Board">
@@ -32,7 +51,12 @@
 		FROM TBL_BOARD
 		WHERE BOARDNO = #{boardNo}
 	</select>
-	
+	<select id="boardComments" parameterType="hashmap" resultType="com.example.test1.model.Board">
+		SELECT *
+			FROM TBL_USER U
+			INNER JOIN TBL_COMMENT C ON U.USERID = C.USERID
+			WHERE BOARDNO = #{boardNo}
+	</select>
 	
 	<delete id="deleteBoard" parameterType="hashmap">
 		DELETE 

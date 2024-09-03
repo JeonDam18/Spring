@@ -46,8 +46,7 @@ public class BoardController {
 
 	        return "/board-insert";
 	    }
-
-
+	
 	//게시글 상세
 	@RequestMapping(value = "/board-view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody

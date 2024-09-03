@@ -18,6 +18,10 @@
 				내용 : <div v-html="list.contents"></div>					
 			</div>
 			<div>작성자 : {{list.userId}}</div>
+		<div v-for="item in comList">
+			<div>댓글 : {{item.contents}}</div>
+			<span>이름 : {{item.userName}}</span>
+		</div>
 		<div v-if="list.userId == sessionId || sessionStatus == 'A'">
 			<button @click="fnDelete(list.boardNo)">삭제</button>
 		</div>
@@ -32,7 +36,8 @@
 				list : {},
 				boardNo : '${boardNo}',
 				sessionId : '${sessionId}',
-				sessionStatus : '${sessionStatus}'
+				sessionStatus : '${sessionStatus}',
+				comList : {}
             };
         },
         methods: {
@@ -45,7 +50,8 @@
 					type : "POST", 
 					data : nparam,
 					success : function(data) {
-						self.list = data.list;		
+						self.list = data.list;
+						self.comList = data.comment;		
 					}
 				});
 			 },

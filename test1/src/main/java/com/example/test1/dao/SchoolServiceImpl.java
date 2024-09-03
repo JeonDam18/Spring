@@ -18,12 +18,15 @@ public class SchoolServiceImpl implements SchoolService{
 	@Autowired
 	SchoolMapper schoolMapper;
 	
+	//학생리스트 조회
 	@Override
 	public HashMap<String, Object> selectSchoolList(HashMap<String, Object> map) {
 	
 		HashMap<String, Object> resultMap = new HashMap<>();
 		List<School> list = schoolMapper.selectSchoolList(map);
+		int count = schoolMapper.stuCnt(map);
 		resultMap.put("list",list);
+		resultMap.put("count",count);		
 		resultMap.put("result","success");
 		
 		return resultMap;	

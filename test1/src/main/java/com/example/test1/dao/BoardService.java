@@ -19,6 +19,9 @@ public interface BoardService {
 	
 	//게시물 상세
 	HashMap<String,Object> BoardDetail(HashMap<String, Object> map);
-	
 
+	//댓글
+	/* HashMap<String,Object> BoardComments(HashMap<String, Object> map); */
+	
+	
 }

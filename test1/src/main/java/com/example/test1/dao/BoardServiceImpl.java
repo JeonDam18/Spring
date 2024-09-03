@@ -26,7 +26,9 @@ public class BoardServiceImpl implements BoardService{
 
 		HashMap<String, Object> resultMap = new HashMap<>();
 		List<Board> list = BoardMapper.selectBoardList(map);
+		int count = BoardMapper.boardCnt(map);
 		resultMap.put("list",list);
+		resultMap.put("count",count);		
 		resultMap.put("result","success");
 		
 		return resultMap;	
@@ -73,9 +75,20 @@ public class BoardServiceImpl implements BoardService{
 		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		Board board = BoardMapper.BoardList(map);
+		List<Board> comment = BoardMapper.boardComments(map);
 		resultMap.put("list",board);
-		
+		resultMap.put("comment",comment);
 		return resultMap;
 	}
 
+	/*
+	 * @Override public HashMap<String, Object> BoardComments(HashMap<String,
+	 * Object> map) {
+	 * 
+	 * HashMap<String, Object> resultMap = new HashMap<String, Object>();
+	 * List<Board> list = BoardMapper.boardComments(map);
+	 * resultMap.put("list",list);
+	 * 
+	 * return resultMap; }
+	 */
 }

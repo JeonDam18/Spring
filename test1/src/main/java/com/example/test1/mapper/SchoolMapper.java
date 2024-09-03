@@ -16,5 +16,7 @@ public interface SchoolMapper {
 	List<School> stuInfo(HashMap<String,Object> map);
 	
 	void stuUpdate(HashMap<String,Object> map);
+	
+	int stuCnt(HashMap<String,Object> map);
 }
 
