@@ -16,8 +16,15 @@ public class Board {
 	private String tag2;
 	private String noticeyn;
 	private String udateTime;
-
+	
 	private String userName;
 	
+	private String fileNo;
+	private String fileName;
+	private String fileOrgName;
+	private String filePath;
+	private String fileSize;
+	private String fileExt;
+	private String thumbNailYn;
 	
 }

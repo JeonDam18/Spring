@@ -34,6 +34,6 @@
 	
 	<insert id="userJoin" parameterType="hashmap">
 		INSERT INTO TBL_USER
-		VALUES(#{userId},#{pwd},#{name},#{email},#{phone},#{gender})
+		VALUES(#{userId},#{pwd},#{name},#{email},#{phone},#{gender},#{status},#{addr})
 	</insert>
 </mapper> 

@@ -23,5 +23,7 @@ public interface BoardMapper {
 	 
 	 void insertBoard(HashMap<String,Object> map);
 	 
+	 void insertBoardFile(HashMap<String,Object> map);
+	 
 	 List<Board> boardComments(HashMap<String,Object> map);
 }

@@ -68,4 +68,10 @@
 		TBL_BOARD(BOARDNO,TITLE,CONTENTS,USERID,HIT,CDATETIME,UDATETIME)
 		VALUES(BOARD_SEQ.NEXTVAL,#{title},#{contents},#{userId},0,SYSDATE,SYSDATE)
 	</insert>
+	
+	<insert id="insertBoardFile" parameterType="hashmap" useGeneratedKeys="true" keyProperty="boardNo" keyColumn="boardNo">
+		INSERT INTO
+		TBL_BOARDFIEL(FILENO,FILEPATH,FILENAME,BOARDNO)
+		VALUES(BOARDFILE_SEQ.NEXTVAL,#{filePath},#{fileName},#{boardNo})
+	</insert>
 </mapper>

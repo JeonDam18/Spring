@@ -54,6 +54,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public HashMap<String, Object> insertBoard(HashMap<String, Object> map) {
 		
+		System.out.println(map);
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		try {
