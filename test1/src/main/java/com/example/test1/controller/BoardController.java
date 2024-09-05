@@ -92,6 +92,7 @@ public class BoardController {
 		resultMap = BoardService.insertBoard(map);
 		return new Gson().toJson(resultMap);
 	}
+	
 	@RequestMapping("/fileUpload.dox")
     public String result(@RequestParam("file1") MultipartFile multi, @RequestParam("boardNo") int boardNo, HttpServletRequest request,HttpServletResponse response, Model model)
     {
@@ -99,7 +100,6 @@ public class BoardController {
         String path=System.getProperty("user.dir");
         System.out.println(path);
         try {
- 
             //String uploadpath = request.getServletContext().getRealPath(path);
             String uploadpath = path;
             String originFilename = multi.getOriginalFilename();
@@ -119,9 +119,12 @@ public class BoardController {
                 multi.transferTo(file);
                 
                 HashMap<String, Object> map = new HashMap<String, Object>();
-                map.put("filename", saveFileName);
-                map.put("path", "../img/" + saveFileName);
+                map.put("fileName", saveFileName);
+                map.put("filePath", "../img/" + saveFileName);
                 map.put("boardNo", boardNo);
+                map.put("fileOrgName", originFilename);
+                map.put("fileSize", size);
+                map.put("fileExt", extName);
                 
                 // insert 쿼리 실행
                 boardMapper.insertBoardFile(map);

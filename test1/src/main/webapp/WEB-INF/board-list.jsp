@@ -130,6 +130,7 @@
         },
         methods: {
             fnGetList(page){
+				
 				var self = this;
 				var startIndex = (page-1) *self.pageSize;			
 				self.currentPage = page;

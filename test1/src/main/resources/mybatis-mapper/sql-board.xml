@@ -63,7 +63,7 @@
 		FROM TBL_BOARD 
 		WHERE BOARDNO = #{boardNo}
 	</delete>
-	<insert id="insertBoard" parameterType="hashmap">
+	<insert id="insertBoard" parameterType="hashmap" useGeneratedKeys="true" keyProperty="boardNo" keyColumn="boardNo">
 		INSERT INTO
 		TBL_BOARD(BOARDNO,TITLE,CONTENTS,USERID,HIT,CDATETIME,UDATETIME)
 		VALUES(BOARD_SEQ.NEXTVAL,#{title},#{contents},#{userId},0,SYSDATE,SYSDATE)
@@ -71,7 +71,7 @@
 	
 	<insert id="insertBoardFile" parameterType="hashmap" useGeneratedKeys="true" keyProperty="boardNo" keyColumn="boardNo">
 		INSERT INTO
-		TBL_BOARDFIEL(FILENO,FILEPATH,FILENAME,BOARDNO)
-		VALUES(BOARDFILE_SEQ.NEXTVAL,#{filePath},#{fileName},#{boardNo})
+		TBL_BOARDFILE(FILENO,BOARDNO,FILENAME,FILEORGNAME,FILEPATH,FILESIZE,FILEEXT)
+		VALUES(BOARDFILE_SEQ.NEXTVAL,#{boardNo},#{fileName},#{fileOrgName},#{filePath},#{fileSize},#{fileExt})
 	</insert>
 </mapper>
