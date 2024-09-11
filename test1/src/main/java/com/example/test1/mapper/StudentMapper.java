@@ -17,7 +17,7 @@ public interface StudentMapper {
 	
 	Student selectStu(HashMap<String, Object> map);
 	
-	List<Emp> selectEmp();
+	void selectEmp(HashMap<String, Object> map);
 	
 	List<Student> selectSubject();
 	

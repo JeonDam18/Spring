@@ -80,6 +80,7 @@
 		</div>
 		<table>
 				        <tr>
+							<th></th>
 				            <th>번호</th>
 				            <th>제목</th>
 				            <th>작성자</th>
@@ -88,15 +89,17 @@
 				            
 				        </tr>
 				        <tr v-for="item in list">
+							<td><input type="checkbox" v-model="selectItem" :value="item.boardNo">
 				            <td>{{item.boardNo}}</td>
-				            <td><a href="#" @click="fnView(item.boardNo)">{{item.title}}</a></td>
+				            <td><a href="#" @click="fnView(item.boardNo)">{{item.title}}<p v-if="item.count>0">({{item.count}})</p></a></td>
 				            <td><a href="#" @click="fnUserView(item.userId)">{{item.userName}}</a></td>
 				            <td>{{item.hit}}</td>
 				            <td>{{item.cdateTime}}</td>
-							
+				            <td>{{item.userId}}</td>
 				        </tr>
 				    </table>
 				
+				<button @click="fnCheckRemove()">선택삭제</button>
 				<button @click="fnInsert()">게시글작성</button>
 				<button @click="fnLogout()">로그아웃</button>
 				<div>세션값 {{sessionId}}</div>
@@ -125,7 +128,8 @@
 				currentPage: 1,      
 				pageSize: 5,        
 				totalPages: 1,
-				cntValue : 5
+				cntValue : 5,
+				selectItem : []
             };
         },
         methods: {
@@ -157,6 +161,10 @@
 				
 			 fnView(BoardNo){
 				$.pageChange("board-view.do",{boardNo : BoardNo});
+				var self = this;
+				self.fnUserView();
+				
+				self.fnCateBoard();
 			 },
 			 fnUserView(userId){
 				$.pageChange("user-view.do",{userId : userId});
@@ -176,6 +184,27 @@
 				var self = this;
 				self.pageSize=self.cntValue;
 				self.fnGetList(1);
+			},
+			fnCheckRemove(){
+				var self = this;
+				var fList = JSON.stringify(self.selectItem);
+				var nparmap = {selectItem : fList
+				    };
+				$.ajax({
+					url:"check-remove.dox",
+					dataType:"json",	
+					type : "POST", 
+					data : nparmap,
+					success : function(data) { 
+						console.log(data);
+						if(data.result=="success"){
+							alert("다중선택삭제 성공");
+							self.fnGetList(1);
+						}else{
+							alert("실패");
+						}
+					}
+				});
 			}
         },
 		       

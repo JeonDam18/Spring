@@ -26,6 +26,7 @@ public class BoardServiceImpl implements BoardService{
 
 		HashMap<String, Object> resultMap = new HashMap<>();
 		List<Board> list = BoardMapper.selectBoardList(map);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@"+map.get("userName"));
 		int count = BoardMapper.boardCnt(map);
 		resultMap.put("list",list);
 		resultMap.put("count",count);		
@@ -46,8 +47,6 @@ public class BoardServiceImpl implements BoardService{
 
 			resultMap.put("message", "예기치 못한 문제가 발생했습니다.");			
 		}
-		
-
 			return resultMap;
 	}
 
@@ -80,6 +79,18 @@ public class BoardServiceImpl implements BoardService{
 		List<Board> comment = BoardMapper.boardComments(map);
 		resultMap.put("list",board);
 		resultMap.put("comment",comment);
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteCheckBoard(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		BoardMapper.deleteCheckBoard(map);
+		try {
+			resultMap.put("result","success");			
+		} catch (Exception e) {
+			resultMap.put("result","fail");
+		}
 		return resultMap;
 	}
 

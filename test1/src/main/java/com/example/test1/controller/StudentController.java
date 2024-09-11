@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.test1.dao.StudentService;
 import com.example.test1.model.Emp;
 import com.example.test1.model.Student;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @Controller
@@ -104,5 +106,20 @@ public class StudentController {
 		resultMap = studentService.searchSubject();
 		return new Gson().toJson(resultMap);
 	}
+	
+	//게시글 선택삭제
+	/*
+	 * @RequestMapping(value = "/emp-check.dox", method = RequestMethod.POST,
+	 * produces = "application/json;charset=UTF-8")
+	 * 
+	 * @ResponseBody public String emp_check(Model model, @RequestParam
+	 * HashMap<String, Object> map) throws Exception { HashMap<String, Object>
+	 * resultMap = new HashMap<String, Object>(); String json =
+	 * map.get("selectItem").toString(); ObjectMapper mapper = new ObjectMapper();
+	 * List<Object> list = mapper.readValue(json, new
+	 * TypeReference<List<Object>>(){}); map.put("list", list);
+	 * System.out.println(map); resultMap = studentService.searchEmp(map); return
+	 * new Gson().toJson(resultMap); }
+	 */
 }
 

@@ -50,12 +50,7 @@ public class StudentServiceImpl implements StudentService{
 		return resultMap;
 	}
 
-	@Override
-	public List<Emp> searchEmp() {
-		// TODO Auto-generated method stub
-		return studentMapper.selectEmp();
-	}
-
+	
 	@Override
 	public HashMap<String ,Object> searchSubject() {
 		// TODO Auto-generated method stub
@@ -67,5 +62,11 @@ public class StudentServiceImpl implements StudentService{
 		
 		return resultMap;
 		
+	}
+
+	@Override
+	public List<Emp> searchEmp() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -3,6 +3,7 @@ package com.example.test1.controller;
 import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.test1.dao.BoardService;
 import com.example.test1.mapper.BoardMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @Controller
@@ -81,6 +84,20 @@ public class BoardController {
 		HashMap<String, Object> resultMap 
 			= new HashMap<String, Object>();
 		resultMap = BoardService.deleteBoard(map);
+		return new Gson().toJson(resultMap);
+	}
+	//게시글 선택삭제
+	@RequestMapping(value = "/check-remove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String remove(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap 
+			= new HashMap<String, Object>();
+		String json = map.get("selectItem").toString(); 
+		ObjectMapper mapper = new ObjectMapper();
+		List<Object> list = mapper.readValue(json, new TypeReference<List<Object>>(){});
+		map.put("list", list);
+		System.out.println(map);
+		resultMap = BoardService.deleteCheckBoard(map);
 		return new Gson().toJson(resultMap);
 	}
 	//게시글 게시

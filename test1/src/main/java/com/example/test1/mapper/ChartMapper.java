@@ -13,4 +13,9 @@ public interface ChartMapper {
 	List<Chart> areaData(HashMap<String,Object> map);
 	List<Chart> areaGuData(HashMap<String,Object> map);
 	List<Chart> areaDongData(HashMap<String,Object> map);
+	//item 정렬
+	List<Chart> itemSelect(HashMap<String,Object> map);
+	List<Chart> codeList(HashMap<String,Object> map);
+	
+	Chart weatherData(HashMap<String,Object> map);
 }

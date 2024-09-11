@@ -20,6 +20,8 @@ public interface BoardMapper {
 	
 	 //게시글 삭제
 	 void deleteBoard(HashMap<String,Object> map);
+	 //게시뭃 선택 삭제
+	 void deleteCheckBoard(HashMap<String,Object> map);
 	 
 	 void insertBoard(HashMap<String,Object> map);
 	 

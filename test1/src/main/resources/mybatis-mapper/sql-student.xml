@@ -32,7 +32,13 @@
 	</select>
 	
 	<select id="selectEmp" parameterType="hashmap" resultType="com.example.test1.model.Emp">
-		SELECT *
-		FROM EMP
+		SELECT * FROM EMP E
+		INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+		WHERE 
+		1=1
+		<foreach collection="list" item="item"  separator="OR">
+		E.DEPTNO = #{item}
+		</foreach>
+		
 	</select>
 </mapper>

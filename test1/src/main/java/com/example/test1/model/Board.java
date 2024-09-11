@@ -23,8 +23,18 @@ public class Board {
 	private String fileName;
 	private String fileOrgName;
 	private String filePath;
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	private String fileSize;
 	private String fileExt;
 	private String thumbNailYn;
+	
+	private String count;
 	
 }

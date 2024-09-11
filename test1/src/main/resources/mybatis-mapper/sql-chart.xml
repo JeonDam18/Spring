@@ -12,21 +12,43 @@
 	
 	<select id="areaData" parameterType="hashmap" resultType="com.example.test1.model.Chart">
 		SELECT SI 
-		FROM TBL_AREA 
+		FROM AREA 
 		GROUP BY SI 
 		ORDER BY SI ASC
 	</select>
 	
 	<select id="areaGuData" parameterType="hashmap" resultType="com.example.test1.model.Chart">
 		SELECT GU 
-		FROM TBL_AREA
-		 WHERE SI= #{si} 
+		FROM AREA
+		 WHERE SI= #{si} AND GU IS NOT NULL
 		 GROUP BY GU,SI
 	</select>
 	<select id="areaDongData" parameterType="hashmap" resultType="com.example.test1.model.Chart">
 		SELECT DONG 
-		FROM TBL_AREA
-		 WHERE SI= #{si} AND GU= #{gu}
+		FROM AREA
+		 WHERE SI= #{si} AND GU= #{gu} AND DONG IS NOT NULL
 		 GROUP BY DONG
+	</select>
+	
+	<select id="weatherData" parameterType="hashmap" resultType="com.example.test1.model.Chart">
+		SELECT NX,NY
+		FROM AREA
+		WHERE SI= #{si} AND GU= #{gu} AND DONG=#{dong}
+	</select>
+
+	<select id="itemSelect" parameterType="hashmap" resultType="com.example.test1.model.Chart">
+		SELECT *
+		FROM TBL_ITEM I
+		INNER JOIN TBL_CODE C ON I.CATEGORY1 = C.CODE
+		<if test="list != null">
+			WHERE CATEGORY1 IN 
+			<foreach collection="list" item="item" open="(" close=")" separator=","> 
+			#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="codeList" parameterType="hashmap" resultType="com.example.test1.model.Chart">
+		SELECT *
+		FROM TBL_CODE
 	</select>
 </mapper>

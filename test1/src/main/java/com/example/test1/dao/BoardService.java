@@ -13,6 +13,8 @@ public interface BoardService {
 	
 	//게시글삭제
 	HashMap<String, Object> deleteBoard(HashMap<String, Object> map);
+
+	HashMap<String, Object> deleteCheckBoard(HashMap<String, Object> map);
 	
 	//게시글 게시
 	HashMap<String,Object> insertBoard(HashMap<String, Object> map);

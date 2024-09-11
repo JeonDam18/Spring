@@ -3,6 +3,7 @@ package com.example.test1.controller;
 import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.test1.dao.ChartService;
+import com.example.test1.dao.ChartServiceImpl;
 import com.example.test1.mapper.BoardMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @Controller
@@ -67,13 +71,65 @@ public class ChartController {
 		
 		return "/file";
 	}
+	// coolSMS 테스트 화면
+	@RequestMapping("/sms.do")
+	public String mySms() {
+		return "sms";
+	}
+	// 아이템 정렬
+	@RequestMapping("/item.do")
+	public String itemView(Model model) throws Exception{
+		return "item";
+	}
 	
+	@RequestMapping("/api1.do")
+	public String api1(Model model) throws Exception{
+		return "api1";
+	}
+	
+	
+	    
+	// coolSMS 구현 로직 연결  
+	/*
+	 * @RequestMapping("/check/sendSMS") public @ResponseBody String
+	 * sendSMS(@RequestParam(value="to") String to) throws CoolsmsException { return
+	 * ChartService.PhoneNumberCheck(to); }
+	 */
+	@RequestMapping(value = "/weather.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String weather(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap 
+			= new HashMap<String, Object>();
+		resultMap = chartService.weatherData(map);
+		return new Gson().toJson(resultMap);
+	}
 	@RequestMapping(value = "/chart-data.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String chart_data(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap 
-			= new HashMap<String, Object>();
+		= new HashMap<String, Object>();
 		resultMap = chartService.ChartData(map);
+		return new Gson().toJson(resultMap);
+	}
+	//ITEM리스트
+	@RequestMapping(value = "/item-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String item_list(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap 
+		= new HashMap<String, Object>();
+		String json = map.get("selectItem").toString(); 
+		ObjectMapper mapper = new ObjectMapper();
+		List<Object> list = mapper.readValue(json, new TypeReference<List<Object>>(){});
+		map.put("list", list);
+		resultMap = chartService.itemSelect(map);
+		return new Gson().toJson(resultMap);
+	}
+	@RequestMapping(value = "/code-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String code_list(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap 
+		= new HashMap<String, Object>();
+		resultMap = chartService.codeList(map);
 		return new Gson().toJson(resultMap);
 	}
 	@RequestMapping(value = "/area.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
